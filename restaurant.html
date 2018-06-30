@@ -22,7 +22,7 @@
       </h1>
     </nav>
     <!-- Beginning breadcrumb -->
-    <ul id="breadcrumb">
+    <ul id="breadcrumb" role="navigation" aria-label="Breadcrumb">
       <li>
         <a href="/">Home</a>
       </li>
@@ -34,23 +34,24 @@
   <!-- End header -->
 
   <!-- Beginning main -->
-  <main id="maincontent" class="restaurant-main">
+  <main id="maincontent" class="restaurant-main" aria-describedby="restaurant-name" role="main">
+    <a href="#reviews-container" class="skip-link">Skip map</a>
     <!-- Beginning map -->
-    <section id="map-container">
-        <div id="map"></div>
+    <section id="map-container" aria-label="google map">
+        <div id="map" role="application"></div>
       </section>
       <!-- End map -->
     <!-- Beginning restaurant -->
-    <section id="restaurant-container">
+    <section id="restaurant-container" role="article" aria-label="restaurant details" tabindex="0">
       <h2 id="restaurant-name"></h2>
-      <img id="restaurant-img">
+      <img id="restaurant-img" alt="restaurant presentation photo">
       <p id="restaurant-cuisine"></p>
       <p id="restaurant-address"></p>
       <table id="restaurant-hours"></table>
     </section>
     <!-- end restaurant -->
     <!-- Beginning reviews -->
-    <section id="reviews-container">
+    <section id="reviews-container" role="article">
       <ul id="reviews-list"></ul>
     </section>
     <!-- End reviews -->
