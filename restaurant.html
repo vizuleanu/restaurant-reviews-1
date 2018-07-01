@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Restaurant Details</title>
+  <title>Restaurant Info</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="utf-8">
   <!-- Normalize.css for better cross-browser consistency -->
@@ -16,13 +16,11 @@
   <!-- Beginning header -->
   <header class="restaurant-header">
     <!-- Beginning nav -->
-    <nav class="restaurant-header__nav">
-      <h1>
-        <a href="/">Restaurant Reviews</a>
-      </h1>
+    <nav>
+      <h1><a href="/">Restaurant Reviews</a></h1>
     </nav>
     <!-- Beginning breadcrumb -->
-    <ul id="breadcrumb" role="navigation" aria-label="Breadcrumb">
+    <ul id="breadcrumb" aria-label="Breadcrumb" role="navigation">
       <li>
         <a href="/">Home</a>
       </li>
@@ -35,19 +33,20 @@
 
   <!-- Beginning main -->
   <main id="maincontent" class="restaurant-main" aria-describedby="restaurant-name" role="main">
-    <a href="#reviews-container" class="skip-link">Skip map</a>
     <!-- Beginning map -->
+    <a href="#restaurant-container" class="skip" title="skip link">Skip map</a>
     <section id="map-container" aria-label="google map">
-        <div id="map" role="application"></div>
-      </section>
-      <!-- End map -->
+      <div id="map" role="application"></div>
+    </section>
+    <!-- End map -->
     <!-- Beginning restaurant -->
-    <section id="restaurant-container" role="article" aria-label="restaurant details" tabindex="0">
+    <section id="restaurant-container" aria-label="restaurant details" tabindex="0" role="article">
       <h2 id="restaurant-name"></h2>
-      <img id="restaurant-img" alt="restaurant presentation photo">
+      <img id="restaurant-img" alt="photo of restaurant">
       <p id="restaurant-cuisine"></p>
       <p id="restaurant-address"></p>
       <table id="restaurant-hours"></table>
+      
     </section>
     <!-- end restaurant -->
     <!-- Beginning reviews -->
@@ -59,9 +58,7 @@
   <!-- End main -->
 
   <!-- Beginning footer -->
-  <footer id="footer">
-    Copyright (c) 2017
-    <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
+  <footer id="footer">Copyright (c) 2017<a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
   </footer>
   <!-- End footer -->
 

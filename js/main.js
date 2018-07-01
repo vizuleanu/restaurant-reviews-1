@@ -1,5 +1,5 @@
-let restaurants, 
-  neighborhoods, 
+let restaurants,
+  neighborhoods,
   cuisines;
 var map;
 var markers = [];
@@ -9,6 +9,7 @@ var markers = [];
 document.addEventListener('DOMContentLoaded', event => {
   fetchNeighborhoods();
   fetchCuisines();
+  updateRestaurants();
 });
 
 /**
@@ -32,9 +33,6 @@ fillNeighborhoodsHTML = (neighborhoods = self.neighborhoods) => {
   const select = document.getElementById('neighborhoods-select');
   neighborhoods.forEach(neighborhood => {
     const option = document.createElement('option');
-    if (localStorage.getItem('neighborhood') === neighborhood) {
-      option.setAttribute('selected', 'selected');
-    }
     option.innerHTML = neighborhood;
     option.value = neighborhood;
     select.append(option);
@@ -46,8 +44,7 @@ fillNeighborhoodsHTML = (neighborhoods = self.neighborhoods) => {
  */
 fetchCuisines = () => {
   DBHelper.fetchCuisines((error, cuisines) => {
-    if (error) {
-      // Got an error!
+    if (error) { // Got an error!
       console.error(error);
     } else {
       self.cuisines = cuisines;
@@ -63,11 +60,6 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
   const select = document.getElementById('cuisines-select');
   cuisines.forEach(cuisine => {
     const option = document.createElement('option');
-    /* Set the options user selected before navigating away from index.html, once he returns to it by hitting 'back' */
-    if (localStorage.getItem('cuisine') === cuisine) {
-      option.setAttribute('selected', 'selected');
-      localStorage.clear();
-    }
     option.innerHTML = cuisine;
     option.value = cuisine;
     select.append(option);
@@ -82,7 +74,7 @@ window.initMap = () => {
     lat: 40.722216,
     lng: -73.987501
   };
-  self.map = new google.maps.Map(document.getElementById("map"), {
+  self.map = new google.maps.Map(document.getElementById('map'), {
     zoom: 12,
     center: loc,
     scrollwheel: false
@@ -102,13 +94,9 @@ updateRestaurants = () => {
 
   const cuisine = cSelect[cIndex].value;
   const neighborhood = nSelect[nIndex].value;
-
-  DBHelper.fetchRestaurantByCuisineAndNeighborhood(
-    cuisine,
-    neighborhood,
-    (error, restaurants) => {
-      if (error) {
-        // Got an error!
+  
+  DBHelper.fetchRestaurantByCuisineAndNeighborhood(cuisine, neighborhood, (error, restaurants) => {
+      if (error) { // Got an error!
         console.error(error);
       } else {
         resetRestaurants(restaurants);
@@ -121,14 +109,14 @@ updateRestaurants = () => {
 /**
  * Clear current restaurants, their HTML and remove their map markers.
  */
-resetRestaurants = restaurants => {
+resetRestaurants = (restaurants) => {
   // Remove all restaurants
   self.restaurants = [];
   const ul = document.getElementById('restaurants-list');
   ul.innerHTML = '';
 
   // Remove all map markers
-  self.markers.forEach(m => m.setMap(null));
+  self.markers.forEach(marker => marker.setMap(null));
   self.markers = [];
   self.restaurants = restaurants;
 };
@@ -138,6 +126,8 @@ resetRestaurants = restaurants => {
  */
 fillRestaurantsHTML = (restaurants = self.restaurants) => {
   const ul = document.getElementById('restaurants-list');
+  ul.setAttribute('tabindex', '0');
+  ul.setAttribute('aria-label', 'restaurants list');
   restaurants.forEach(restaurant => {
     ul.append(createRestaurantHTML(restaurant));
   });
@@ -147,11 +137,11 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
 /**
  * Create restaurant HTML.
  */
-createRestaurantHTML = restaurant => {
-  const li = document.createElement('l')
-  li.setAttribute("aria-label", "restaurant details");;
+createRestaurantHTML = (restaurant) => {
+  const li = document.createElement('li');
+  li.setAttribute('aria-label', 'information about the restaurant');
   const image = document.createElement('img');
-  image.setAttribute("alt", `${restaurant.name}'s restaurant photo`);
+  image.setAttribute("alt", `Photo of the restaurant ${restaurant.name}`);
   image.className = 'restaurant-img';
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
   li.append(image);
@@ -169,6 +159,7 @@ createRestaurantHTML = restaurant => {
   li.append(address);
 
   const more = document.createElement('a');
+  more.setAttribute( 'aria-label', restaurant.name + ", " + restaurant.neighborhood );
   more.innerHTML = 'View Details';
   more.href = DBHelper.urlForRestaurant(restaurant);
   li.append(more);
@@ -189,4 +180,5 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     self.markers.push(marker);
   });
 };
+
 
