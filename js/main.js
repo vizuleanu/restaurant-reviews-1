@@ -127,7 +127,7 @@ resetRestaurants = (restaurants) => {
 fillRestaurantsHTML = (restaurants = self.restaurants) => {
   const ul = document.getElementById('restaurants-list');
   ul.setAttribute('tabindex', '0');
-  ul.setAttribute('aria-label', 'restaurants list');
+  ul.setAttribute('aria-label', 'Restaurants available');
   restaurants.forEach(restaurant => {
     ul.append(createRestaurantHTML(restaurant));
   });
@@ -139,7 +139,7 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
  */
 createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
-  li.setAttribute('aria-label', 'information about the restaurant');
+  li.setAttribute('aria-label', 'Information about the restaurant');
   const image = document.createElement('img');
   image.setAttribute("alt", `Photo of the restaurant ${restaurant.name}`);
   image.className = 'restaurant-img';
