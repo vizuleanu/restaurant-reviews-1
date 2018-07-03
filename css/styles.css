@@ -366,25 +366,23 @@ nav h1 a {
   #restaurants-list {
     width: 90%;
   }
-
-  .filter-options select {
-    padding: 5px;
-    width: 30%;
-  }
-
   #restaurants-list li h3 {
-    font-size: 1.3em;
+    font-size: 1.2em;
+  }
+  .filter-options select {
+    padding: 6px;
+    width: 30%;
   }
 
   /* restaurant page */
   #restaurant-container {
-    width: 100%;
-    padding: 0;
-    margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-around;
+    width: 100%;
+    padding: 0;
+    margin: 0 auto;
     border-top: 1px solid #d9d9d9;
   }
 
@@ -424,11 +422,11 @@ nav h1 a {
   }
 
   .restaurant-main #map-container {
+    order: 0;
     width: 100%;
     height: 300px;
-    margin: 0 auto;
     padding: 120px 0 0;
-    order: 0;
+    margin: 0 auto;
   }
 
   #reviews-container {
